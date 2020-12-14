@@ -6,7 +6,7 @@
 \usage{
 make_decision_trial(
   res_list,
-  eli_cohort,
+  which_cohort,
   test_strat = 3,
   sharing_type = "all",
   Bayes_Sup = NULL,
@@ -27,7 +27,7 @@ make_decision_trial(
 \item{res_list}{List item containing individual cohort trial results so far in a format used by the
 other functions in this package}
 
-\item{eli_cohort}{Current cohort that should be evaluated}
+\item{which_cohort}{Current cohort that should be evaluated}
 
 \item{test_strat}{Testing strategy used; 1 = Combo vs. both monos, 2 = 1 + Add-on Mono vs. Placebo, 3 = 2 + Backbone mono vs. placebo}
 
@@ -58,7 +58,7 @@ other functions in this package}
 \item{...}{Further arguments inherited from upper layer functions}
 }
 \value{
-List containing original res_list and results of deicision rules
+List containing original res_list and results of decision rules
 }
 \description{
 Given a res_list object, checks the supplied decision criteria and saves the results in the res_list file.
@@ -124,10 +124,10 @@ Bayes_Sup <- list(list(Bayes_Sup1, Bayes_Sup2, Bayes_Sup3, Bayes_Sup4),
 
 sharing_type <- "all"
 interim <- FALSE
-eli_cohort <- 1
+which_cohort <- 1
 
 make_decision_trial(
-res_list = res_list, eli_cohort = eli_cohort,
+res_list = res_list, which_cohort = which_cohort,
 interim = interim,
 Bayes_Sup = Bayes_Sup, sharing_type = sharing_type
 )
@@ -233,7 +233,7 @@ CI_Sup_Fut4 <- list(list(est = "OR", ci = 0.95, p_hat_lower_sup = 1.20,
 CI_Sup_Fut <- list(list(CI_Sup_Fut1, CI_Sup_Fut2, CI_Sup_Fut3, CI_Sup_Fut4),
                    list(CI_Sup_Fut1, CI_Sup_Fut2, CI_Sup_Fut3, CI_Sup_Fut4))
 
-make_decision_trial(res_list = res_list, eli_cohort = eli_cohort, interim = interim,
+make_decision_trial(res_list = res_list, which_cohort = which_cohort, interim = interim,
 Bayes_Sup = Bayes_Sup, sharing_type = sharing_type,
 Bayes_Fut = Bayes_Fut, Bayes_SA_Sup = Bayes_SA_Sup, Bayes_SA_Fut = Bayes_SA_Fut, P_Sup = P_Sup,
 P_Fut = P_Fut, Est_Sup_Fut = Est_Sup_Fut, CI_Sup_Fut = CI_Sup_Fut
