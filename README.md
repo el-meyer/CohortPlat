@@ -30,4 +30,5 @@ devtools::install_github("el-meyer/CohortPlat")
 
 Please see the [reference
 manual](https://el-meyer.github.io/CohortPlat/) for more information on
-the usage of this package.
+the usage of this package, or jump directly to the
+[vignette](https://el-meyer.github.io/CohortPlat/articles/my-vignette.html).
