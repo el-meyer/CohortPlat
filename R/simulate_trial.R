@@ -735,8 +735,11 @@ simulate_trial <- function(n_int = 50, n_fin = 100, cohorts_start = 1, rr_comb, 
   perc_n_sup_th <- (comb_pat_sup_th + mono_pat_sup_th + back_pat_sup_th) / sum(sapply(res_list, function(x) total_n(x)), na.rm = T)
 
   if (trial_struc != "no_plac") {
-    plac_pats_real <- sum(sapply(res_list[1:length(p_real)], function(x) x$Plac$n), na.rm = T)
-    could_have_been_randomised <- plac_pats_real + comb_pat_sup_real + mono_pat_sup_real + back_pat_sup_real
+    could_have_been_randomised <-
+      sum(sapply(res_list[1:length(p_real)], function(x) x$Plac$n), na.rm = T) +
+      sum(sapply(res_list[1:length(p_real)], function(x) x$Comb$n), na.rm = T) +
+      sum(sapply(res_list[1:length(p_real)], function(x) x$Mono$n), na.rm = T) +
+      sum(sapply(res_list[1:length(p_real)], function(x) x$Back$n), na.rm = T)
     perc_n_sup_real <- (comb_pat_sup_real + mono_pat_sup_real + back_pat_sup_real) / could_have_been_randomised
   } else {
     could_have_been_randomised <- 0
