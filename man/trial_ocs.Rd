@@ -76,7 +76,7 @@ cohort_random <- 0.05
 target_rr <- c(0,0,1)
 cohort_offset <- 5
 random_type <- "absolute"
-sr_first_post <- TRUE
+sr_first_pos <- TRUE
 
 # Vergleich Combo vs Mono
 Bayes_Sup1 <- matrix(nrow = 3, ncol = 3)

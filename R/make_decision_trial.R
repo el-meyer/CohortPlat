@@ -41,8 +41,9 @@
 #'
 #' # Example 1
 #'
-#' res_list <- list(c(list(decision = rep("none", 2), alloc_ratio = c(1,1,1,1), n_thresh = c(Inf, 210)),
-#'                    rep(list(list(rr = NULL, resp_bio = NULL, resp_hist = NULL, n = NULL)), 4)))
+#' res_list <- list(c(list(decision = rep("none", 2), alloc_ratio = c(1,1,1,1),
+#'                    n_thresh = c(Inf, 210)),
+#'            rep(list(list(rr = NULL, resp_bio = NULL, resp_hist = NULL, n = NULL)), 4)))
 #'
 #' names(res_list)[1] <- paste0("Cohort", 1)
 #' names(res_list[[1]])[4:7] <- c("Comb", "Mono", "Back", "Plac")
@@ -131,8 +132,12 @@
 #' # Backbone
 #' Bayes_SA_Sup3 <- matrix(nrow = 1, ncol = 3)
 #' Bayes_SA_Sup3[1,] <- c(0.15, 0.80, 0.75)
-#' Bayes_SA_Sup <- list(list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3),
-#'                      list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3))
+#' # Placebo
+#' Bayes_SA_Sup4 <- matrix(nrow = 1, ncol = 3)
+#' Bayes_SA_Sup4[1,] <- c(0.15, 0.80, 0.75)
+#'
+#' Bayes_SA_Sup <- list(list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3, Bayes_SA_Sup4),
+#'                      list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3, Bayes_SA_Sup4))
 #'
 #' ## Combo
 #' Bayes_SA_Fut1 <- matrix(nrow = 1, ncol = 2)
@@ -143,8 +148,12 @@
 #' # Backbone
 #' Bayes_SA_Fut3 <- matrix(nrow = 1, ncol = 2)
 #' Bayes_SA_Fut3[1,] <- c(0.15, 0.50)
-#' Bayes_SA_Fut <- list(list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3),
-#'                      list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3))
+#' # Placebo
+#' Bayes_SA_Fut4 <- matrix(nrow = 1, ncol = 2)
+#' Bayes_SA_Fut4[1,] <- c(0.15, 0.50)
+#'
+#' Bayes_SA_Fut <- list(list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3, Bayes_SA_Fut4),
+#'                      list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3, Bayes_SA_Fut4))
 #'
 #' # Comparison Combo vs Mono
 #' P_Sup1 <- list(list(
@@ -278,12 +287,29 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
   # The fifth element is the threshold required for the lower CI bound to declare promising, e.g. PROMISING if p_hat_lower > p_hat_lower_prom
 
 
+  # Helper function posterior probability of one Beta being by margin delta greater than other Beta
+  post_prob_bin <- function(n_exp, n_contr, resp_exp, resp_contr, delta,
+                            a0_exp, b0_exp, a0_contr, b0_contr) {
+
+    # in notation of diploma thesis, this calculates the probability P(P_e >= P_c + delta_sup)
+    prob_sup <- stats::integrate(function(y) {
+      stats::dbeta(y, a0_exp + resp_exp, b0_exp - resp_exp + n_exp) *
+        stats::pbeta(y - delta, a0_contr + resp_contr, b0_contr - resp_contr + n_contr)
+    }, delta, 1)$value
+
+    # return posterior probability
+    return(prob_sup)
+  }
+
+
   # Create list for whether futility/superiority decisions were made for every single rule for all three comparisons
   # All list elements will be matrices, with rows corresponding to multiple decision rules and columns corresponding to the
   # three comparisons (j=1: Combo vs Mono, j=2: Combo vs Back, j=3: Mono vs Placebo, j=4: Back vs Placebo)
   superiority_reached <- list()
   futility_reached <- list()
   promising <- list()
+
+  sup_reached <- fut_reached <- prom_reached <- NULL
 
   # Get responders and sample sizes
   resp_bio_tot <- resp_hist_tot <- n_tot <- NULL
@@ -619,7 +645,7 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
           eval(parse(text = paste(paste0("prob_sup_sa_vec", i, "[", j, "]"), "<- NA")))
         } else {
           eval(parse(text = paste(paste0("prob_sup_sa_vec", i, "[", j, "]"), "<-",
-                                  1 - pbeta(Bayes_SA_Sup[[j]][i,1],
+                                  1 - stats::pbeta(Bayes_SA_Sup[[j]][i,1],
                                             beta_prior + resp_tot[c],
                                             beta_prior + n_tot[c] - resp_tot[c]))))
         }
@@ -686,7 +712,7 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
           eval(parse(text = paste(paste0("prob_fut_sa_vec", i, "[", j, "]"), "<- NA")))
         } else {
           eval(parse(text = paste(paste0("prob_fut_sa_vec", i, "[", j, "]"), "<-",
-                                  1 - pbeta(Bayes_SA_Fut[[j]][i,1],
+                                  1 - stats::pbeta(Bayes_SA_Fut[[j]][i,1],
                                             beta_prior + resp_tot[c],
                                             beta_prior + n_tot[c] - resp_tot[c]))))
         }

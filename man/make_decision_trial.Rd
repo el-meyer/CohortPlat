@@ -67,8 +67,9 @@ Given a res_list object, checks the supplied decision criteria and saves the res
 
 # Example 1
 
-res_list <- list(c(list(decision = rep("none", 2), alloc_ratio = c(1,1,1,1), n_thresh = c(Inf, 210)),
-                   rep(list(list(rr = NULL, resp_bio = NULL, resp_hist = NULL, n = NULL)), 4)))
+res_list <- list(c(list(decision = rep("none", 2), alloc_ratio = c(1,1,1,1),
+                   n_thresh = c(Inf, 210)),
+           rep(list(list(rr = NULL, resp_bio = NULL, resp_hist = NULL, n = NULL)), 4)))
 
 names(res_list)[1] <- paste0("Cohort", 1)
 names(res_list[[1]])[4:7] <- c("Comb", "Mono", "Back", "Plac")
@@ -157,8 +158,12 @@ Bayes_SA_Sup2[1,] <- c(0.15, 0.80, 0.75)
 # Backbone
 Bayes_SA_Sup3 <- matrix(nrow = 1, ncol = 3)
 Bayes_SA_Sup3[1,] <- c(0.15, 0.80, 0.75)
-Bayes_SA_Sup <- list(list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3),
-                     list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3))
+# Placebo
+Bayes_SA_Sup4 <- matrix(nrow = 1, ncol = 3)
+Bayes_SA_Sup4[1,] <- c(0.15, 0.80, 0.75)
+
+Bayes_SA_Sup <- list(list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3, Bayes_SA_Sup4),
+                     list(Bayes_SA_Sup1, Bayes_SA_Sup2, Bayes_SA_Sup3, Bayes_SA_Sup4))
 
 ## Combo
 Bayes_SA_Fut1 <- matrix(nrow = 1, ncol = 2)
@@ -169,8 +174,12 @@ Bayes_SA_Fut2[1,] <- c(0.15, 0.50)
 # Backbone
 Bayes_SA_Fut3 <- matrix(nrow = 1, ncol = 2)
 Bayes_SA_Fut3[1,] <- c(0.15, 0.50)
-Bayes_SA_Fut <- list(list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3),
-                     list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3))
+# Placebo
+Bayes_SA_Fut4 <- matrix(nrow = 1, ncol = 2)
+Bayes_SA_Fut4[1,] <- c(0.15, 0.50)
+
+Bayes_SA_Fut <- list(list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3, Bayes_SA_Fut4),
+                     list(Bayes_SA_Fut1, Bayes_SA_Fut2, Bayes_SA_Fut3, Bayes_SA_Fut4))
 
 # Comparison Combo vs Mono
 P_Sup1 <- list(list(

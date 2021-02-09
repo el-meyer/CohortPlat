@@ -75,6 +75,20 @@ plot_table_function <- function(.) {
   ) %>%
   DT::formatRound(colnames(orig), digits = 3)
 }
+
+  post_prob_bin <- function(n_exp, n_contr, resp_exp, resp_contr, delta,
+                            a0_exp, b0_exp, a0_contr, b0_contr) {
+
+    # in notation of diploma thesis, this calculates the probability P(P_e >= P_c + delta_sup)
+    prob_sup <- stats::integrate(function(y) {
+      stats::dbeta(y, a0_exp + resp_exp, b0_exp - resp_exp + n_exp) *
+        stats::pbeta(y - delta, a0_contr + resp_contr, b0_contr - resp_contr + n_contr)
+    }, delta, 1)$value
+
+    # return posterior probability
+    return(prob_sup)
+  }
+
 ```
 
 # Trial Design Overview
@@ -814,13 +828,13 @@ The variables are:
 ## Example 1
 
 ```{r, cache = TRUE, fig.width = 8, fig.height = 10, message = FALSE}
-plot_trial(run1)
+#plot_trial(run1)
 ```
 
 ## Example 2
 
 ```{r, cache = TRUE, fig.width = 8, fig.height = 10, message = FALSE}
-plot_trial(run2, unit = "n")
+#plot_trial(run2, unit = "n")
 ```
 
 
@@ -1048,10 +1062,10 @@ set.seed(50)
   cohorts_max = cohorts_max, sr_drugs_pos = sr_drugs_pos, target_rr = target_rr, 
   sharing_type = sharing_type, safety_prob = safety_prob, Bayes_Sup = Bayes_Sup,
   Bayes_Fut = Bayes_Fut, prob_rr_transform = prob_rr_transform,
-  ret_trials = ret_trials, iter = iter, coresnum = coresnum, save = save, path = path, 
+  ret_trials = ret_trials, iter = iter, coresnum = coresnum, save = FALSE, path = path, 
   filename = filename, ret_list = ret_list, plot_ocs = plot_ocs
  )
-ocs1[[3]]
+#ocs1[[3]]
 ```
 
 ### Example 2
@@ -1176,17 +1190,17 @@ ret_list <- TRUE
 ret_trials <- FALSE
 # Should stability plots be shown?
 plot_ocs <- TRUE
-set.seed(50)
- ocs1 <- trial_ocs(
-  n_int = n_int, n_fin = n_fin, rr_comb = rr_comb, rr_mono = rr_mono, rr_back = rr_back, 
-  rr_plac = rr_plac, rr_transform = rr_transform, random = random, prob_comb_rr = prob_comb_rr, 
-  random_type = random_type, prob_mono_rr = prob_mono_rr, prob_back_rr = prob_back_rr,
-  prob_plac_rr = prob_plac_rr, stage_data = stage_data, cohort_random = cohort_random, 
-  cohorts_max = cohorts_max, sr_drugs_pos = sr_drugs_pos, target_rr = target_rr, 
-  sharing_type = sharing_type, safety_prob = safety_prob, P_Sup = P_Sup, 
-  prob_rr_transform = prob_rr_transform, cohort_offset = cohort_offset, ret_trials = ret_trials,
-  iter = iter, coresnum = coresnum, save = save, path = path, filename = filename, ret_list = ret_list,
-  plot_ocs = plot_ocs
- )
-ocs1[[3]]
+# set.seed(50)
+#  ocs1 <- trial_ocs(
+#   n_int = n_int, n_fin = n_fin, rr_comb = rr_comb, rr_mono = rr_mono, rr_back = rr_back, 
+#   rr_plac = rr_plac, rr_transform = rr_transform, random = random, prob_comb_rr = prob_comb_rr, 
+#   random_type = random_type, prob_mono_rr = prob_mono_rr, prob_back_rr = prob_back_rr,
+#   prob_plac_rr = prob_plac_rr, stage_data = stage_data, cohort_random = cohort_random, 
+#   cohorts_max = cohorts_max, sr_drugs_pos = sr_drugs_pos, target_rr = target_rr, 
+#   sharing_type = sharing_type, safety_prob = safety_prob, P_Sup = P_Sup, 
+#   prob_rr_transform = prob_rr_transform, cohort_offset = cohort_offset, ret_trials = ret_trials,
+#   iter = iter, coresnum = coresnum, save = save, path = path, filename = filename, ret_list = ret_list,
+#   plot_ocs = plot_ocs
+#  )
+# ocs1[[3]]
 ```

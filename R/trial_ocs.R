@@ -56,7 +56,7 @@
 #' target_rr <- c(0,0,1)
 #' cohort_offset <- 5
 #' random_type <- "absolute"
-#' sr_first_post <- TRUE
+#' sr_first_pos <- TRUE
 #'
 #' # Vergleich Combo vs Mono
 #' Bayes_Sup1 <- matrix(nrow = 3, ncol = 3)
@@ -167,10 +167,10 @@ trial_ocs <- function(iter, coresnum = 1, save = T, path = NULL, filename = NULL
     Avg_RR_Mono                = mean(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Mono)), na.rm = T),
     Avg_RR_Back                = mean(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Back)), na.rm = T),
     Avg_RR_Plac                = mean(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Plac)), na.rm = T),
-    SD_RR_Comb                 = sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Comb)), na.rm = T),
-    SD_RR_Mono                 = sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Mono)), na.rm = T),
-    SD_RR_Back                 = sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Back)), na.rm = T),
-    SD_RR_Plac                 = sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Plac)), na.rm = T),
+    SD_RR_Comb                 = stats::sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Comb)), na.rm = T),
+    SD_RR_Mono                 = stats::sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Mono)), na.rm = T),
+    SD_RR_Back                 = stats::sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Back)), na.rm = T),
+    SD_RR_Plac                 = stats::sd(unlist(sapply(trial_results, function(x) x$Trial_Overview$RR_Plac)), na.rm = T),
     Avg_Suc_Hist               = mean(sapply(trial_results, function(x) x$Trial_Overview$Successes_Hist)),
     Avg_Suc_Hist_Comb          = mean(sapply(trial_results, function(x) x$Trial_Overview$Successes_Hist_Comb)),
     Avg_Suc_Hist_Mono          = mean(sapply(trial_results, function(x) x$Trial_Overview$Successes_Hist_Mono)),
@@ -188,6 +188,15 @@ trial_ocs <- function(iter, coresnum = 1, save = T, path = NULL, filename = NULL
     Avg_TN                     = mean(sapply(trial_results, function(x) x$Trial_Overview$TN)),
     Avg_FN                     = mean(sapply(trial_results, function(x) x$Trial_Overview$FN)),
     Avg_any_P                  = mean(sapply(trial_results, function(x) x$Trial_Overview$any_P)),
+    Avg_Int_GO_Trial           = mean(sapply(trial_results, function(x) x$Trial_Overview$Int_GO_Trial)),
+    Avg_Int_STOP_Trial         = mean(sapply(trial_results, function(x) x$Trial_Overview$Int_STOP_Trial)),
+    Avg_Safety_STOP_Trial      = mean(sapply(trial_results, function(x) x$Trial_Overview$Safety_STOP_Trial)),
+    Avg_FDR_Trial              = mean(sapply(trial_results, function(x) x$Trial_Overview$FDR_Trial), na.rm = TRUE),
+    Avg_PTT1ER_Trial           = mean(sapply(trial_results, function(x) x$Trial_Overview$PTT1ER_Trial), na.rm = TRUE),
+    Avg_PTP_Trial              = mean(sapply(trial_results, function(x) x$Trial_Overview$PTP_Trial), na.rm = TRUE),
+    Coh_Int_GO_Perc            = sum(sapply(trial_results, function(x) x$Trial_Overview$Int_GO)) / sum(sapply(trial_results, function(x) x$Trial_Overview$N_Cohorts)),
+    Coh_Int_STOP_Perc          = sum(sapply(trial_results, function(x) x$Trial_Overview$Int_STOP)) / sum(sapply(trial_results, function(x) x$Trial_Overview$N_Cohorts)),
+    Coh_Safety_STOP_Perc       = sum(sapply(trial_results, function(x) x$Trial_Overview$Safety_STOP)) / sum(sapply(trial_results, function(x) x$Trial_Overview$N_Cohorts)),
     Dist_FWER                  = sapply(trial_results, function(x) x$Trial_Overview$FP > 0),
     Dist_FDR                   = cumsum(sapply(trial_results, function(x) x$Trial_Overview$FP)) /
                                  cumsum(sapply(trial_results, function(x) x$Trial_Overview$TP) + sapply(trial_results, function(x) x$Trial_Overview$FP)),
@@ -253,7 +262,7 @@ trial_ocs <- function(iter, coresnum = 1, save = T, path = NULL, filename = NULL
       PTT1ER = ret1$Dist_PTT1ER
       ) %>%
       tidyr::gather(
-        key = "Error Rate", value = "Prob",
+        key = "Error_Rate", value = "Prob",
         FWER_CD, FWER_BA, FDR, Disj_Power_CD, Disj_Power_BA, PTP, PTT1ER,
         factor_key = TRUE
       ) %>%
@@ -263,7 +272,7 @@ trial_ocs <- function(iter, coresnum = 1, save = T, path = NULL, filename = NULL
 
     sim_plot <-
       plotly::ggplotly(
-        ggplot2::ggplot(d1, ggplot2::aes(x = Simulation, y = Prob, color = `Error Rate`)) +
+        ggplot2::ggplot(d1, ggplot2::aes(x = Simulation, y = Prob, color = Error_Rate)) +
           ggplot2::geom_line() +
           ggplot2::theme_minimal()
       )

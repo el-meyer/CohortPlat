@@ -81,7 +81,7 @@ of simulations of the trial and saves the result in an Excel file" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -219,7 +219,7 @@ of simulations of the trial and saves the result in an Excel file</p>
 <span class='va'>target_rr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>cohort_offset</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
 <span class='va'>random_type</span> <span class='op'>&lt;-</span> <span class='st'>"absolute"</span>
-<span class='va'>sr_first_post</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
+<span class='va'>sr_first_pos</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
 
 <span class='co'># Vergleich Combo vs Mono</span>
 <span class='va'>Bayes_Sup1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
@@ -255,9 +255,9 @@ prob_rr_transform <span class='op'>=</span> <span class='va'>prob_rr_transform</
 trial_struc <span class='op'>=</span> <span class='va'>trial_struc</span>, iter <span class='op'>=</span> <span class='fl'>50</span>, coresnum <span class='op'>=</span> <span class='fl'>1</span>, save <span class='op'>=</span> <span class='cn'>FALSE</span>,
 ret_list <span class='op'>=</span> <span class='cn'>TRUE</span>, plot_ocs <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in trial_ocs(n_int = n_int, n_fin = n_fin, random_type = random_type,     rr_comb = rr_comb, rr_mono = rr_mono, rr_back = rr_back,     rr_plac = rr_plac, rr_transform = rr_transform, random = random,     prob_comb_rr = prob_comb_rr, prob_mono_rr = prob_mono_rr,     prob_back_rr = prob_back_rr, prob_plac_rr = prob_plac_rr,     stage_data = stage_data, cohort_random = cohort_random, cohorts_max = cohorts_max,     sr_drugs_pos = sr_drugs_pos, target_rr = target_rr, sharing_type = sharing_type,     sr_first_pos = sr_first_pos, safety_prob = safety_prob, Bayes_Sup = Bayes_Sup,     prob_rr_transform = prob_rr_transform, cohort_offset = cohort_offset,     trial_struc = trial_struc, iter = 50, coresnum = 1, save = FALSE,     ret_list = TRUE, plot_ocs = TRUE): Objekt 'sr_first_pos' nicht gefunden</span></div><div class='input'>
+
 <span class='va'>ocs</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): Objekt 'ocs' nicht gefunden</span></div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

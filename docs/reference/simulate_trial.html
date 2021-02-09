@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -295,57 +295,7 @@ By default: c(0,0, "risk-difference").</p></td>
     <p>List containing: Responses and patients on experimental and control arm, total treatment successes and failures and final p-value</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>random</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-
-<span class='va'>rr_comb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.35</span>, <span class='fl'>0.4</span><span class='op'>)</span>
-<span class='va'>prob_comb_rr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.4</span>, <span class='fl'>0.2</span><span class='op'>)</span>
-<span class='va'>rr_mono</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.15</span>, <span class='fl'>0.20</span>, <span class='fl'>0.25</span><span class='op'>)</span>
-<span class='va'>prob_mono_rr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.4</span><span class='op'>)</span>
-<span class='va'>rr_back</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.20</span>, <span class='fl'>0.25</span>, <span class='fl'>0.30</span><span class='op'>)</span>
-<span class='va'>prob_back_rr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.4</span>, <span class='fl'>0.3</span><span class='op'>)</span>
-<span class='va'>rr_plac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.10</span>, <span class='fl'>0.12</span>, <span class='fl'>0.14</span><span class='op'>)</span>
-<span class='va'>prob_plac_rr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.25</span><span class='op'>)</span>
-
-
-<span class='va'>cohorts_max</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>
-<span class='va'>trial_struc</span> <span class='op'>&lt;-</span> <span class='st'>"stop_post_back"</span>
-<span class='va'>safety_prob</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
-<span class='va'>sharing_type</span> <span class='op'>&lt;-</span> <span class='st'>"concurrent"</span>
-<span class='va'>sr_drugs_pos</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>
-<span class='va'>sr_first_pos</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-<span class='va'>n_int</span> <span class='op'>&lt;-</span> <span class='fl'>50</span>
-<span class='va'>n_fin</span> <span class='op'>&lt;-</span> <span class='fl'>100</span>
-<span class='va'>stage_data</span> <span class='op'>&lt;-</span> <span class='cn'>TRUE</span>
-<span class='va'>cohort_random</span> <span class='op'>&lt;-</span> <span class='fl'>0.05</span>
-<span class='va'>target_rr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>cohort_offset</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
-<span class='va'>random_type</span> <span class='op'>&lt;-</span> <span class='st'>"risk_difference"</span>
-
-<span class='co'># Vergleich Combo vs Mono</span>
-<span class='va'>Bayes_Sup1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup1</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.00</span>, <span class='fl'>0.90</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup1</span><span class='op'>[</span><span class='fl'>2</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.65</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup1</span><span class='op'>[</span><span class='fl'>3</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.10</span>, <span class='fl'>0.50</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='co'># Vergleich Combo vs Backbone</span>
-<span class='va'>Bayes_Sup2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.80</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup2</span><span class='op'>[</span><span class='fl'>2</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup2</span><span class='op'>[</span><span class='fl'>3</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='cn'>NA</span><span class='op'>)</span>
-<span class='co'># Vergleich Mono vs Placebo</span>
-<span class='va'>Bayes_Sup3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup3</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.00</span>, <span class='fl'>0.90</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup3</span><span class='op'>[</span><span class='fl'>2</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.65</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup3</span><span class='op'>[</span><span class='fl'>3</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup4</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.00</span>, <span class='fl'>0.90</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup4</span><span class='op'>[</span><span class='fl'>2</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.05</span>, <span class='fl'>0.65</span>, <span class='fl'>1.00</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup4</span><span class='op'>[</span><span class='fl'>3</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>Bayes_Sup</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>Bayes_Sup1</span>, <span class='va'>Bayes_Sup2</span>, <span class='va'>Bayes_Sup3</span>, <span class='va'>Bayes_Sup4</span><span class='op'>)</span>,
-             <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>Bayes_Sup1</span>, <span class='va'>Bayes_Sup2</span>, <span class='va'>Bayes_Sup3</span>, <span class='va'>Bayes_Sup4</span><span class='op'>)</span><span class='op'>)</span>
-
-
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
