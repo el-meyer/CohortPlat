@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 library(CohortPlat)
 ```
 
-# Simulation of cohohrt platform trials investigating combination treatments with a common backbone versus placebo
+# Simulation of cohort platform trials investigating combination treatments with a common backbone versus placebo
 
 
 The following document gives an overview of the `CohortPlat` R package. Each function is discussed separately. For the rest of this document it is assumed that the package has been installed and loaded. Many examples are provided throughout.

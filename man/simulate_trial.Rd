@@ -180,7 +180,7 @@ Bayes_Sup4[3,] <- c(NA, NA, NA)
 Bayes_Sup <- list(list(Bayes_Sup1, Bayes_Sup2, Bayes_Sup3, Bayes_Sup4),
              list(Bayes_Sup1, Bayes_Sup2, Bayes_Sup3, Bayes_Sup4))
 
-Vergleich Combo vs Mono
+# Vergleich Combo vs Mono
 Bayes_Fut1 <- matrix(nrow = 1, ncol = 2)
 Bayes_Fut1[1,] <- c(0.00, 0.60)
 # Vergleich Combo vs Backbone
@@ -194,7 +194,7 @@ Bayes_Fut4[1,] <- c(0.00, 0.60)
 Bayes_Fut <- list(list(Bayes_Fut1, Bayes_Fut2, Bayes_Fut3, Bayes_Fut4),
                   list(Bayes_Fut1, Bayes_Fut2, Bayes_Fut3, Bayes_Fut4))
 
-simulate_trial(
+a <- simulate_trial(
 n_int = n_int, n_fin = n_fin, trial_struc = trial_struc, random_type = random_type,
 rr_comb = rr_comb, rr_mono = rr_mono, rr_back = rr_back, rr_plac = rr_plac,
 rr_transform = rr_transform, random = random, prob_comb_rr = prob_comb_rr,
@@ -203,6 +203,6 @@ stage_data = stage_data, cohort_random = cohort_random, cohorts_max = cohorts_ma
 sr_drugs_pos = sr_drugs_pos, target_rr = target_rr, sharing_type = sharing_type,
 safety_prob = safety_prob, Bayes_Sup = Bayes_Sup, prob_rr_transform = prob_rr_transform,
 cohort_offset = cohort_offset, sr_first_pos = sr_first_pos, Bayes_Fut = Bayes_Fut
-)$Trial_Overview
+)
 
 }
