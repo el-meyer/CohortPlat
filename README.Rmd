@@ -22,7 +22,7 @@ The goal of CohortPlat is to facilitate the simulation of cohort platform trials
 
 ## Installation
 
-You can install the released version of CohortPlat from [CRAN](https://CRAN.R-project.org) as soon as it is uploaded with:
+You can install the released version of CohortPlat from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("CohortPlat")
