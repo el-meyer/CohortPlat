@@ -7,7 +7,7 @@
 trial_ocs(
   iter,
   coresnum = 1,
-  save = T,
+  save = FALSE,
   path = NULL,
   filename = NULL,
   ret_list = FALSE,

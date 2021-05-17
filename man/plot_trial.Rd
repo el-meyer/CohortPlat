@@ -85,7 +85,6 @@ safety_prob = safety_prob, Bayes_Sup = Bayes_Sup, prob_rr_transform = prob_rr_tr
 cohort_offset = cohort_offset, Bayes_Fut = Bayes_Fut, sr_first_pos = sr_first_pos
 )
 
-plot_trial(res_list)
 plot_trial(res_list, unit = "n")
 
 }

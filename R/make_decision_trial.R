@@ -315,55 +315,55 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
   resp_bio_tot <- resp_hist_tot <- n_tot <- NULL
 
   # Combo
-  resp_bio_tot[1] <- sum(res_list[[which_cohort]]$Comb$resp_bio, na.rm = T)
-  resp_hist_tot[1] <- sum(res_list[[which_cohort]]$Comb$resp_hist, na.rm = T)
-  n_tot[1] <- sum(res_list[[which_cohort]]$Comb$n, na.rm = T)
+  resp_bio_tot[1] <- sum(res_list[[which_cohort]]$Comb$resp_bio, na.rm = TRUE)
+  resp_hist_tot[1] <- sum(res_list[[which_cohort]]$Comb$resp_hist, na.rm = TRUE)
+  n_tot[1] <- sum(res_list[[which_cohort]]$Comb$n, na.rm = TRUE)
 
   # Mono
-  resp_bio_tot[2] <- sum(res_list[[which_cohort]]$Mono$resp_bio, na.rm = T)
-  resp_hist_tot[2] <- sum(res_list[[which_cohort]]$Mono$resp_hist, na.rm = T)
-  n_tot[2] <- sum(res_list[[which_cohort]]$Mono$n, na.rm = T)
+  resp_bio_tot[2] <- sum(res_list[[which_cohort]]$Mono$resp_bio, na.rm = TRUE)
+  resp_hist_tot[2] <- sum(res_list[[which_cohort]]$Mono$resp_hist, na.rm = TRUE)
+  n_tot[2] <- sum(res_list[[which_cohort]]$Mono$n, na.rm = TRUE)
 
   # Plac
   if (length(res_list[[which_cohort]]$alloc_ratio) == 4) {
 
     if (sharing_type == "cohort") {
-      resp_bio_tot[4] <- sum(res_list[[which_cohort]]$Plac$resp_bio, na.rm = T)
-      resp_hist_tot[4] <- sum(res_list[[which_cohort]]$Plac$resp_hist, na.rm = T)
-      n_tot[4] <- sum(res_list[[which_cohort]]$Plac$n, na.rm = T)
+      resp_bio_tot[4] <- sum(res_list[[which_cohort]]$Plac$resp_bio, na.rm = TRUE)
+      resp_hist_tot[4] <- sum(res_list[[which_cohort]]$Plac$resp_hist, na.rm = TRUE)
+      n_tot[4] <- sum(res_list[[which_cohort]]$Plac$n, na.rm = TRUE)
     }
 
     if (sharing_type == "all") {
-      resp_bio_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio, na.rm = T)), na.rm = T)
-      resp_hist_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist, na.rm = T)), na.rm = T)
-      n_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$n, na.rm = T)), na.rm = T)
+      resp_bio_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio, na.rm = TRUE)), na.rm = TRUE)
+      resp_hist_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist, na.rm = TRUE)), na.rm = TRUE)
+      n_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$n, na.rm = TRUE)), na.rm = TRUE)
     }
 
     if (sharing_type == "concurrent") {
       conc <- which(!is.na(res_list[[which_cohort]]$Plac$n))
-      resp_bio_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio[conc], na.rm = T)), na.rm = T)
-      resp_hist_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist[conc], na.rm = T)), na.rm = T)
-      n_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$n[conc], na.rm = T)), na.rm = T)
+      resp_bio_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio[conc], na.rm = TRUE)), na.rm = TRUE)
+      resp_hist_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist[conc], na.rm = TRUE)), na.rm = TRUE)
+      n_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$n[conc], na.rm = TRUE)), na.rm = TRUE)
     }
 
     if (sharing_type == "dynamic") {
       # if all are concurrent, no borrowing needed
       if (all(!is.na(res_list[[which_cohort]]$Plac$n))) {
-        resp_bio_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio, na.rm = T)), na.rm = T)
-        resp_hist_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist, na.rm = T)), na.rm = T)
-        n_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$n, na.rm = T)), na.rm = T)
+        resp_bio_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio, na.rm = TRUE)), na.rm = TRUE)
+        resp_hist_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist, na.rm = TRUE)), na.rm = TRUE)
+        n_tot[4] <- sum(sapply(res_list, function(x) sum(x$Plac$n, na.rm = TRUE)), na.rm = TRUE)
       } else {
         # do borrowing
 
         # compute responders from cohort
-        suc_bio_c <- sum(res_list[[which_cohort]]$Plac$resp_bio, na.rm = T)
-        suc_hist_c <- sum(res_list[[which_cohort]]$Plac$resp_hist, na.rm = T)
-        N_c <- sum(res_list[[which_cohort]]$Plac$n, na.rm = T)
+        suc_bio_c <- sum(res_list[[which_cohort]]$Plac$resp_bio, na.rm = TRUE)
+        suc_hist_c <- sum(res_list[[which_cohort]]$Plac$resp_hist, na.rm = TRUE)
+        N_c <- sum(res_list[[which_cohort]]$Plac$n, na.rm = TRUE)
 
         # compute historical responders
-        suc_bio_h <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio, na.rm = T)), na.rm = T) - suc_bio_c
-        suc_hist_h <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist, na.rm = T)), na.rm = T) - suc_hist_c
-        N_h <- sum(sapply(res_list, function(x) sum(x$Plac$n, na.rm = T)), na.rm = T) - N_c
+        suc_bio_h <- sum(sapply(res_list, function(x) sum(x$Plac$resp_bio, na.rm = TRUE)), na.rm = TRUE) - suc_bio_c
+        suc_hist_h <- sum(sapply(res_list, function(x) sum(x$Plac$resp_hist, na.rm = TRUE)), na.rm = TRUE) - suc_hist_c
+        N_h <- sum(sapply(res_list, function(x) sum(x$Plac$n, na.rm = TRUE)), na.rm = TRUE) - N_c
 
         w1_bio <- w * beta(suc_bio_c + suc_bio_h + beta_prior, N_h + N_c - suc_bio_c - suc_bio_h + beta_prior) /
           beta(suc_bio_h + beta_prior, N_h - suc_bio_h + beta_prior)
@@ -393,42 +393,42 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
   # separately for backbone
 
   if (sharing_type == "cohort") {
-    resp_bio_tot[3] <- sum(res_list[[which_cohort]]$Back$resp_bio, na.rm = T)
-    resp_hist_tot[3] <- sum(res_list[[which_cohort]]$Back$resp_hist, na.rm = T)
-    n_tot[3] <- sum(res_list[[which_cohort]]$Back$n, na.rm = T)
+    resp_bio_tot[3] <- sum(res_list[[which_cohort]]$Back$resp_bio, na.rm = TRUE)
+    resp_hist_tot[3] <- sum(res_list[[which_cohort]]$Back$resp_hist, na.rm = TRUE)
+    n_tot[3] <- sum(res_list[[which_cohort]]$Back$n, na.rm = TRUE)
   }
 
   if (sharing_type == "all") {
-    resp_bio_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio, na.rm = T)), na.rm = T)
-    resp_hist_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist, na.rm = T)), na.rm = T)
-    n_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$n, na.rm = T)), na.rm = T)
+    resp_bio_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio, na.rm = TRUE)), na.rm = TRUE)
+    resp_hist_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist, na.rm = TRUE)), na.rm = TRUE)
+    n_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$n, na.rm = TRUE)), na.rm = TRUE)
   }
 
   if (sharing_type == "concurrent") {
     conc <- which(!is.na(res_list[[which_cohort]]$Back$n))
-    resp_bio_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio[conc], na.rm = T)), na.rm = T)
-    resp_hist_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist[conc], na.rm = T)), na.rm = T)
-    n_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$n[conc], na.rm = T)), na.rm = T)
+    resp_bio_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio[conc], na.rm = TRUE)), na.rm = TRUE)
+    resp_hist_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist[conc], na.rm = TRUE)), na.rm = TRUE)
+    n_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$n[conc], na.rm = TRUE)), na.rm = TRUE)
   }
 
   if (sharing_type == "dynamic") {
     # if all are concurrent, no borrowing needed
     if (all(!is.na(res_list[[which_cohort]]$Back$n))) {
-      resp_bio_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio, na.rm = T)), na.rm = T)
-      resp_hist_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist, na.rm = T)), na.rm = T)
-      n_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$n, na.rm = T)), na.rm = T)
+      resp_bio_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio, na.rm = TRUE)), na.rm = TRUE)
+      resp_hist_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist, na.rm = TRUE)), na.rm = TRUE)
+      n_tot[3] <- sum(sapply(res_list, function(x) sum(x$Back$n, na.rm = TRUE)), na.rm = TRUE)
     } else {
       # do borrowing
 
       # compute responders from cohort
-      suc_bio_c <- sum(res_list[[which_cohort]]$Back$resp_bio, na.rm = T)
-      suc_hist_c <- sum(res_list[[which_cohort]]$Back$resp_hist, na.rm = T)
-      N_c <- sum(res_list[[which_cohort]]$Back$n, na.rm = T)
+      suc_bio_c <- sum(res_list[[which_cohort]]$Back$resp_bio, na.rm = TRUE)
+      suc_hist_c <- sum(res_list[[which_cohort]]$Back$resp_hist, na.rm = TRUE)
+      N_c <- sum(res_list[[which_cohort]]$Back$n, na.rm = TRUE)
 
       # compute historical responders
-      suc_bio_h <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio, na.rm = T)), na.rm = T) - suc_bio_c
-      suc_hist_h <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist, na.rm = T)), na.rm = T) - suc_hist_c
-      N_h <- sum(sapply(res_list, function(x) sum(x$Back$n, na.rm = T)), na.rm = T) - N_c
+      suc_bio_h <- sum(sapply(res_list, function(x) sum(x$Back$resp_bio, na.rm = TRUE)), na.rm = TRUE) - suc_bio_c
+      suc_hist_h <- sum(sapply(res_list, function(x) sum(x$Back$resp_hist, na.rm = TRUE)), na.rm = TRUE) - suc_hist_c
+      N_h <- sum(sapply(res_list, function(x) sum(x$Back$n, na.rm = TRUE)), na.rm = TRUE) - N_c
 
       w1_bio <- w * beta(suc_bio_c + suc_bio_h + beta_prior, N_h + N_c - suc_bio_c - suc_bio_h + beta_prior) /
         beta(suc_bio_h + beta_prior, N_h - suc_bio_h + beta_prior)
@@ -782,7 +782,7 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
           f <- match.fun(P_Sup[[j]][[i]]$testfun)
 
           crosstab <-  matrix(c(resp_tot[c2], n_tot[c2] - resp_tot[c2], resp_tot[c1], n_tot[c1] - resp_tot[c1]),
-                              nrow = 2, ncol = 2, byrow = T)
+                              nrow = 2, ncol = 2, byrow = TRUE)
           eval(parse(text = paste(paste0("p_values", i, "[", j, "]"), "<-", f(crosstab)$p.value)))
 
           # correct for multiplicity
@@ -863,7 +863,7 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
           f <- match.fun(P_Fut[[j]][[i]]$testfun)
 
           crosstab <-  matrix(c(resp_tot[c2], n_tot[c2] - resp_tot[c2], resp_tot[c1], n_tot[c1] - resp_tot[c1]),
-                              nrow = 2, ncol = 2, byrow = T)
+                              nrow = 2, ncol = 2, byrow = TRUE)
           eval(parse(text = paste(paste0("p_values", i, "[", j, "]"), "<-", f(crosstab)$p.value)))
 
           # correct for multiplicity
@@ -949,7 +949,7 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
             }
 
             crosstab <-  matrix(c(resp_tot[c2], n_tot[c2] - resp_tot[c2], resp_tot[c1], n_tot[c1] - resp_tot[c1]),
-                                nrow = 2, ncol = 2, byrow = T)
+                                nrow = 2, ncol = 2, byrow = TRUE)
             eval(parse(text = paste(paste0("p_hat", i, "[", j, "]"), "<-", f(crosstab))))
           }
 
@@ -1043,7 +1043,7 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
             }
 
             crosstab <-  matrix(c(resp_tot[c2], n_tot[c2] - resp_tot[c2], resp_tot[c1], n_tot[c1] - resp_tot[c1]),
-                                nrow = 2, ncol = 2, byrow = T)
+                                nrow = 2, ncol = 2, byrow = TRUE)
             eval(parse(text = paste(paste0("p_hat_upper", i, "[", j, "]"), "<-", f_up(crosstab))))
             eval(parse(text = paste(paste0("p_hat_lower", i, "[", j, "]"), "<-", f_lo(crosstab))))
           }
@@ -1087,9 +1087,9 @@ make_decision_trial <- function(res_list, which_cohort, test_strat = 3, sharing_
       ret <- FALSE
     } else {
       if (type != "fut") {
-        ret <- all(sapply(x, function(y) all(y, na.rm = T)), na.rm = T)
+        ret <- all(sapply(x, function(y) all(y, na.rm = TRUE)), na.rm = TRUE)
       } else {
-        ret <- any(sapply(x, function(y) any(y, na.rm = T)), na.rm = T)
+        ret <- any(sapply(x, function(y) any(y, na.rm = TRUE)), na.rm = TRUE)
       }
     }
     return(ret)
