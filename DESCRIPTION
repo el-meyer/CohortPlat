@@ -19,7 +19,7 @@ Description: A collection of functions dedicated to simulating staggered entry p
 License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.5.0)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     purrr,
