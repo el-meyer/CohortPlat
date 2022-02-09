@@ -2,12 +2,12 @@ Package: CohortPlat
 Type: Package
 Title: Simulation of Cohort Platform Trials for Combination Treatments
 Version: 1.0.4
-Authors@R: c(person("Elias Laurin", "Meyer", email = "elias.meyer@meduniwien.ac.at", role = c("cre","aut")), 
-  	         person("Mesenbrink", "Peter", role = "ctb"),
-  	         person("Dunger-Baldauf", "Cornelia", role = "ctb"),
-  	         person("Glimm", "Ekkehard", role = "ctb"),
-  	         person("König", "Franz", role = "ctb")) 
-Author: Elias Laurin Meyer [aut, cre], Peter Mesenbrink [ctb], Corenlia Dunger-Baldauf [ctb], Ekkehard Glimm [ctb], Franz König [ctb]
+Authors@R: c(person("Elias Laurin", "Meyer", email = "elias.meyer@meduniwien.ac.at", role = c("aut","cre")), 
+  	         person("Peter", "Mesenbrink", role = "ctb"),
+  	         person("Cornelia", "Dunger-Baldauf", role = "ctb"),
+  	         person("Ekkehard", "Glimm", role = "ctb"),
+  	         person("Franz", "Koenig", role = "ctb")) 
+Author: Elias Laurin Meyer [aut, cre], Peter Mesenbrink [ctb], Cornelia Dunger-Baldauf [ctb], Ekkehard Glimm [ctb], Franz Koenig [ctb]
 Maintainer: Elias Laurin Meyer <elias.meyer@meduniwien.ac.at>
 Description: A collection of functions dedicated to simulating staggered entry platform 
     trials whereby the treatment under investigation is a combination of two 

@@ -92,7 +92,7 @@
 #' sr_first_pos = sr_first_pos, safety_prob = safety_prob, Bayes_Sup = Bayes_Sup,
 #' prob_rr_transform = prob_rr_transform, cohort_offset = cohort_offset,
 #' trial_struc = trial_struc, missing_prob = missing_prob,
-#' iter = 150, coresnum = 1, save = FALSE, ret_list = TRUE, plot_ocs = TRUE
+#' iter = 10, coresnum = 1, save = FALSE, ret_list = TRUE, plot_ocs = TRUE
 #' )
 #'
 #' ocs[[3]]
