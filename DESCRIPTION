@@ -1,7 +1,7 @@
 Package: CohortPlat
 Type: Package
 Title: Simulation of Cohort Platform Trials for Combination Treatments
-Version: 1.0.4
+Version: 1.0.5
 Authors@R: c(person("Elias Laurin", "Meyer", email = "elias.meyer@meduniwien.ac.at", role = c("aut","cre")), 
   	         person("Peter", "Mesenbrink", role = "ctb"),
   	         person("Cornelia", "Dunger-Baldauf", role = "ctb"),
@@ -16,7 +16,7 @@ Description: A collection of functions dedicated to simulating staggered entry p
     of the two active compounds over placebo need to be demonstrated. 
     A more detailed description of the design can be found in 
     Meyer et al. <DOI:10.1002/pst.2194> and a manual in Meyer et al. <arXiv:2202.02182>.
-License: GPL-3
+License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 3.5.0)
 RoxygenNote: 7.1.2
