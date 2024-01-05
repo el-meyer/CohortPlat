@@ -20,6 +20,8 @@ License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.5.0)
 RoxygenNote: 7.1.2
+URL: https://el-meyer.github.io/CohortPlat/, https://github.com/el-meyer/CohortPlat
+BugReports: https://github.com/el-meyer/CohortPlat/issues
 Imports: 
     dplyr,
     purrr,
